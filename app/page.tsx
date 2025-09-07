@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
   Mail,
   Phone,
@@ -34,6 +35,7 @@ import {
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null)
 
   useEffect(() => {
     setIsVisible(true)
@@ -144,10 +146,11 @@ export default function Portfolio() {
   ]
 
   const certifications = [
-    { name: "Problem Solving (Basic)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/8c1f8d164b3d" },
-    { name: "Node (Basic)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/2016049fb760" },
-    { name: "JavaScript", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/acb4e84cb974" },
-    { name: "Rest API (Intermediate)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/9b08dfe360c8" },
+    { name: "Problem Solving (Basic)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/8c1f8d164b3d", iframeUrl: "https://www.hackerrank.com/certificates/iframe/8c1f8d164b3d" },
+    { name: "Node (Basic)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/2016049fb760", iframeUrl: "https://www.hackerrank.com/certificates/iframe/2016049fb760" },
+    { name: "Node.js (Intermediate)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/fb84d2c6d4f5", iframeUrl: "https://www.hackerrank.com/certificates/iframe/fb84d2c6d4f5" },
+    { name: "JavaScript", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/acb4e84cb974", iframeUrl: "https://www.hackerrank.com/certificates/iframe/acb4e84cb974" },
+    { name: "Rest API (Intermediate)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/9b08dfe360c8", iframeUrl: "https://www.hackerrank.com/certificates/iframe/9b08dfe360c8" },
   ]
 
   const achievements = [
@@ -686,14 +689,40 @@ export default function Portfolio() {
                         <p className="text-white font-medium">{cert.name}</p>
                         <p className="text-slate-400 text-sm">{cert.issuedBy}</p>
                       </div>
-                      <Button
-                        variant="outline"
-                        className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent"
-                        onClick={() => window.open(cert.url, "_blank")}
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        View
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent"
+                          onClick={() => window.open(cert.url, "_blank")}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View
+                        </Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent"
+                              onClick={() => setSelectedCertificate(cert.iframeUrl)}
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View Here
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-4xl bg-slate-800 border-slate-700">
+                            <DialogHeader>
+                              <DialogTitle className="text-white">{cert.name}</DialogTitle>
+                            </DialogHeader>
+                            {selectedCertificate && (
+                              <iframe
+                                src={selectedCertificate}
+                                className="w-full h-[600px] border-none"
+                                title={cert.name}
+                              />
+                            )}
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   ))}
                 </div>
