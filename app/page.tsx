@@ -153,9 +153,8 @@ export default function Portfolio() {
     { name: "Rest API (Intermediate)", issuedBy: "HackerRank", url: "https://www.hackerrank.com/certificates/9b08dfe360c8", iframeUrl: "https://www.hackerrank.com/certificates/iframe/9b08dfe360c8" },
   ]
 
-  
   const achievements = [
-    { icon: TrendingUp, value: "70%", label: "Automation Achieved", color: "text-emerald-400" },
+    { icon: TrendingUp, value: "75%", label: "Automation Achieved", color: "text-emerald-400" },
     { icon: Users, value: "10M+", label: "Users Reached", color: "text-blue-400" },
     { icon: Rocket, value: "15+", label: "Features Delivered", color: "text-purple-400" },
     { icon: Clock, value: "3+", label: "Years Experience", color: "text-orange-400" },
